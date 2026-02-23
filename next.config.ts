@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
+  basePath: '/portfolio-yoga',
+  assetPrefix: '/portfolio-yoga',
   images: {
     // Allow SVG files served as static assets
     dangerouslyAllowSVG: true,
