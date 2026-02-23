@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Layout, Settings } from "lucide-react";
+import Image from "next/image";
+import { Code2, Layout, Settings, LucideIcon } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { skills, Skill } from "@/data/skills";
@@ -12,24 +13,27 @@ const CATEGORY_ORDER: Skill["category"][] = [
     "Tools",
 ];
 
-const categoryMeta: Record<string, { icon: any; color: string }> = {
+const categoryMeta: Record<string, { icon: LucideIcon; color: string }> = {
     "Bahasa Pemrograman": { icon: Code2, color: "#00d4aa" },
     Framework: { icon: Layout, color: "#3b82f6" },
     Tools: { icon: Settings, color: "#a855f7" },
 };
 
 function SkillBadge({ skill }: { skill: Skill }) {
+    const iconSrc = skill.icon_name === "antigravity" ? "/images/skills/antigravity.svg" : `https://skillicons.dev/icons?i=${skill.icon_name}`;
+
     return (
         <motion.div
             whileHover={{ y: -5, scale: 1.02 }}
             className="glass rounded-xl px-4 py-3 flex items-center gap-3 hover:border-[var(--accent)]/40 transition-all duration-200 group w-48 flex-shrink-0"
         >
-            <div className="w-10 h-10 rounded-lg bg-[var(--bg)]/50 flex items-center justify-center p-1.5 group-hover:bg-[var(--accent)]/5 transition-colors flex-shrink-0 border border-[var(--border)] group-hover:border-[var(--accent)]/20">
-                <img
-                    src={skill.icon_name === "antigravity" ? "/images/skills/antigravity.svg" : `https://skillicons.dev/icons?i=${skill.icon_name}`}
+            <div className="w-10 h-10 rounded-lg bg-[var(--bg)]/50 flex items-center justify-center p-1.5 group-hover:bg-[var(--accent)]/5 transition-colors flex-shrink-0 border border-[var(--border)] group-hover:border-[var(--accent)]/20 relative">
+                <Image
+                    src={iconSrc}
                     alt={skill.name}
-                    className="w-full h-full object-contain transition-all duration-300 group-hover:scale-110"
-                    loading="lazy"
+                    fill
+                    className="object-contain p-1.5 transition-all duration-300 group-hover:scale-110"
+                    unoptimized={true}
                 />
             </div>
             <span className="text-sm font-medium text-[var(--text-primary)] truncate">{skill.name}</span>
